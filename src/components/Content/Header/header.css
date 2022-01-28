@@ -1,0 +1,10 @@
+.mainTitle {
+    font-size: 25px;
+    margin-top: 35px;
+    color: #26315C;
+    margin-bottom: 40px;
+}
+
+.mainTitle p {
+    font-weight: 300;
+}

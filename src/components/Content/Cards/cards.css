@@ -1,0 +1,32 @@
+.cards {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: flex-start;
+    column-gap: 5%;
+    margin-bottom: 80px;
+}
+
+.card-width {
+    width: 90px;
+    height: 110px;
+    border-radius: 10px;
+    border: 1px solid black;
+}
+
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    background-color: #FFFFFF;
+}
+
+.button:hover {
+    cursor: pointer;
+}
+
+.button p {
+    margin-top: 13px;
+}

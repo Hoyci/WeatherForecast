@@ -1,0 +1,94 @@
+.aside {
+    grid-area: b;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    background-color: #110E3B;
+    color: #fff;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.title h2 {
+    font-size: 30px;
+}
+
+.title svg{
+    margin-right: 5px;
+    font-size: 35px;
+}
+
+.subtitle  p{
+    font-size: 15px;
+    font-weight: 100;
+}
+
+.temperature {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-bottom: 40px;
+}
+
+.temperature p {
+    font-weight: 300;
+}
+
+.thermostat {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    margin-bottom: 30px;
+    margin-left: 10px;
+}
+
+.thermostat h1 {
+    font-size: 70px;
+    font-weight: 300;
+    line-height: 0.8;
+}
+
+.thermostat p {
+    font-weight: 300;
+}
+
+.aside small {
+    font-weight: 500;
+    font-size: 20px;
+    margin-bottom: 40px;
+}
+
+.aside p {
+    font-weight: 300;
+    font-size: 15px;
+}
+
+.sun {    
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+
+.sun p {
+    margin-right: 10px;
+}
+
+
+.sun svg {
+    margin: 0px 5px;
+}

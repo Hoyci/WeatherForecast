@@ -1,0 +1,26 @@
+.headerWeek, .contentWeek {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(auto-fill, 20px);
+    grid-column-gap: 1em;
+    margin-bottom: 15px;
+    padding: 0;
+}
+
+.contentWeek{ 
+    color: #B8C0CE;
+}
+
+.headerWeek {
+    color: #192554;
+    font-weight: 500;
+}
+
+.dayOfWeek, .max {
+    color: #192554;
+}
+
+.RelativeHumidity {
+    display: flex;
+    flex-direction: row;
+}

@@ -1,0 +1,20 @@
+.buttonHandler {
+   display: flex;
+   flex-direction: row;
+   column-gap: 50px;
+   margin-bottom: 20px;
+}
+
+.buttonHandler p {
+    font-size: 20px;
+    color: #192554;
+}
+
+.buttonHandler p:hover {
+    cursor: pointer;
+    color: #586db8;
+}
+
+.bold {
+    font-weight: 700;
+}
