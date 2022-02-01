@@ -2,16 +2,6 @@ import './Aside.css'
 import { WiCloudy, WiSunrise, WiSunset } from 'react-icons/wi'
 import { useState } from 'react/cjs/react.development'
 
-function findClosest(weatherData) {
-    const arrayDates = weatherData.hourly.time
-    const now = Math.floor(Date.now()/1000) 
-    const closest = arrayDates.reduce(function(previous, current) {
-        return (Math.abs(current - now) < Math.abs(previous - now) ? current : previous)
-    })
-    const closestPosition = arrayDates.findIndex((item) => item === closest)
-    return closestPosition
-}
-
 
 function getTimeByTimestamp(timestamp) {
     let hour = new Date(timestamp * 1000).getHours()
@@ -25,8 +15,7 @@ function getDate() {
     return `${new Date().toLocaleDateString('en-us', {weekday: 'short'})}, ${new Date().getDate()} ${new Date().toLocaleDateString('en-us', {month: 'short'})}`
 }
 
-export default function Aside({ weatherData, placeData }) {
-    const [closest, setClosest] = useState(findClosest(weatherData))
+export default function Aside({ weatherData, placeData, closest }) {
         
     return (
         <aside className='aside'>
@@ -43,10 +32,10 @@ export default function Aside({ weatherData, placeData }) {
             </div>
             <div className='temperature'>
                 <div className='thermostat'>
-                    <h1>{weatherData.hourly.temperature_2m[closest]}</h1>
+                    <h1>{weatherData.hourly.temperature_2m[closest]}</h1> 
                     <p>°C</p>
                 </div>
-                <p>Feels like 32°C</p>
+                <p>Feels like {weatherData.hourly.apparent_temperature[closest]}°C</p>
             </div>
             <small>{placeData[2].long_name}, {placeData[4].long_name}</small>
             <div className='sun'>

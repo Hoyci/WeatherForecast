@@ -5,12 +5,12 @@ import Week from './Week/Week'
 import './content.css'
 
 
-export default function Content() {
+export default function Content({ weatherData, closest }) {
     return (
         <main>
             <Header />
             {/* <Cards /> */}
-            <Week />
+            <Week weatherData={weatherData} closest={closest}/>
         </main>
     )
 }

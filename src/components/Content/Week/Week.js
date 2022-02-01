@@ -1,22 +1,50 @@
 import { IoWater } from 'react-icons/io5'
-import { BsSunFill } from 'react-icons/bs'
+import { BsSunFill, 
+    BsFillCloudSunFill, 
+    BsFillCloudFogFill, 
+    BsFillCloudDrizzleFill,  
+    BsFillCloudRainHeavyFill,
+    BsFillCloudLightningRainFill,
+    BsCloudSnowFill,
+    BsSnow,
+} from 'react-icons/bs'
+
+import { BiCloudDrizzle } from 'react-icons/bi'
+import { IoIosThunderstorm } from 'react-icons/io'
 import './week.css'
+import { useState } from 'react/cjs/react.development'
 
+function renderForecast(forecast) {
+    if (forecast >= 1 && forecast <= 3){
+        return <BsFillCloudSunFill color='#FFE269' fontSize='15px' />
+    } else if (forecast >= 45 && forecast <= 48){
+        return <BsFillCloudFogFill color='#9A9A98' fontSize='15px' />
+    } else if (forecast >= 51 && forecast <= 55) {
+        return <BsFillCloudDrizzleFill color='#9A9A98' fontSize='15px'/>
+    } else if (forecast >= 56 && forecast <= 57){
+        return <BiCloudDrizzle color='#9FBFEC' fontSize='15px' />
+    } else if (forecast >= 61 && forecast <= 67) {
+        return <BsFillCloudRainHeavyFill color='#A8C3C7' fontSize='15px' />
+    } else if (forecast >= 71 && forecast <= 77){
+        return <BsCloudSnowFill color='#4C555A' fontSize='15px' />
+    } else if (forecast >= 80 && forecast <= 82) {
+        return <BsFillCloudLightningRainFill color='#A8C3C7' fontSize='15px' />
+    } else if (forecast >= 85 && forecast <= 86) {
+        return <BsSnow color='#4C555A' fontSize='15px'/>
+    } else if (forecast >= 95 && forecast <= 99) {
+        return <IoIosThunderstorm color='#9377F0' fontSize='15px' />
+    } else {
+        return <BsSunFill color='#FFE269' fontSize='15px' />
+    }
+}
 
-export default function Week() {
-    return (
-        <div className='container'>
-            <HeaderWeek />
-
-            <ContentWeek day={'Saturday'} RelativeHumidity={25} min={12} max={27}/>
-            <ContentWeek day={'Sunday'} RelativeHumidity={55} min={8} max={19}/>
-            <ContentWeek day={'Monday'} RelativeHumidity={17} min={13} max={22}/>
-            <ContentWeek day={'Tuesday'} RelativeHumidity={22} min={15} max={29}/>
-            <ContentWeek day={'Wednesday'} RelativeHumidity={18} min={13} max={23}/>
-            <ContentWeek day={'Thursday'} RelativeHumidity={27} min={13} max={25}/>
-            <ContentWeek day={'Friday'} RelativeHumidity={32} min={11} max={22}/>
-        </div>
-    )
+function getRelativeHumidity(weatherData) {
+    const arrayRelativeHumidity = weatherData.hourly.relativehumidity_2m
+    const response = []
+    while (arrayRelativeHumidity.length > 0) {
+        response.push(arrayRelativeHumidity.splice(0, 24))
+    }
+    return response
 }
 
 function HeaderWeek()  {
@@ -31,17 +59,39 @@ function HeaderWeek()  {
     )
 }
 
-function ContentWeek({day, RelativeHumidity, min, max}) {
+function ContentWeek({day, RelativeHumidity, forecast, min, max}) {
+    // console.log('forecast', forecast)
     return (
         <div className='contentWeek'>
-                <p className='dayOfWeek'>{day}</p> 
+                <p className='dayOfWeek'>{new Date(day * 1000).toLocaleDateString('en-us', {weekday : 'long'})}</p> 
                 <div className='RelativeHumidity'>
                     <IoWater color='#6A9FD7' fontSize='15px' />
                     <p>{RelativeHumidity}%</p>
                 </div>
-                <BsSunFill color='#F3C107' fontSize='15px' />
-                <p className='min'> {min}°C</p>
-                <p className='max'>{max}°C</p>
+                {renderForecast(forecast)}
+                <p className='min'> {Math.ceil(min)}°C</p>
+                <p className='max'>{Math.ceil(max)}°C</p>
+        </div>
+    )
+}
+
+export default function Week({ weatherData, closest }) {
+    const [relativeHumidity, setRelativeHumidity] = useState(getRelativeHumidity(weatherData))
+
+    return (
+        <div className='container'>
+            <HeaderWeek />
+
+            {weatherData.daily.time.map((item, index) => 
+                <ContentWeek 
+                    key={index}
+                    day={item} 
+                    RelativeHumidity={relativeHumidity[index][closest]} 
+                    forecast={weatherData.daily.weathercode[index]} 
+                    min={weatherData.daily.temperature_2m_min[index]} 
+                    max={weatherData.daily.temperature_2m_max[index]}
+                />
+            )}
         </div>
     )
 }
